@@ -3,6 +3,9 @@ local S = minetest.get_translator(minetest.get_current_modname())
 minetest.register_alias("castle:orb_day", "orbs_of_time:orb_day")
 minetest.register_alias("castle:orb_night", "orbs_of_time:orb_night")
 
+orbs_of_time = {}
+orbs_of_time.cooldown = 0
+
 minetest.register_tool("orbs_of_time:orb_day", {
 	description = S("Orb of Midday"),
 	_doc_items_longdesc = S("This magical orb grants you the power to bring the Sun to the zenith of the sky."),
@@ -13,13 +16,21 @@ minetest.register_tool("orbs_of_time:orb_day", {
 	stack_max=1,
 	groups = { tool=1 },
 	on_use = function(itemstack, user)
-		minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
-		minetest.set_timeofday(0.5)
-		minetest.sound_play("orbs_birds", {pos=user:getpos(), loop=false})
-		if not minetest.settings:get_bool("creative_mode") then
-			itemstack:add_wear(65535/8)
+		if orbs_of_time.cooldown == 0 then
+			minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
+			minetest.set_timeofday(0.5)
+			orbs_of_time.cooldown = 1
+			minetest.sound_play("orbs_birds", {pos=user:getpos(), loop=false})
+			if not minetest.settings:get_bool("creative_mode") then
+				itemstack:add_wear(65535/8)
+			end
+			minetest.after(15, function()
+				orbs_of_time.cooldown = 0
+				end
+			)
+			return itemstack
 		end
-		return itemstack
+		minetest.chat_send_player(user:get_player_name(), "Cannot change time again so soon!")
 	end,
 })
 
@@ -33,13 +44,21 @@ minetest.register_tool("orbs_of_time:orb_night",{
 	stack_max=1,
 	groups = { tool=1 },
 	on_use = function(itemstack, user)
-		minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
-		minetest.set_timeofday(0)
-		minetest.sound_play("orbs_owl", {pos=user:getpos(), loop=false})
-		if not minetest.settings:get_bool("creative_mode") then
-			itemstack:add_wear(65535/8)
+		if orbs_of_time.cooldown == 0 then
+			minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
+			minetest.set_timeofday(0)
+			orbs_of_time.cooldown = 1
+			minetest.sound_play("orbs_owl", {pos=user:getpos(), loop=false})
+			if not minetest.settings:get_bool("creative_mode") then
+				itemstack:add_wear(65535/8)
+			end
+			minetest.after(15, function()
+				orbs_of_time.cooldown = 0
+				end
+			)
+			return itemstack
 		end
-		return itemstack
+		minetest.chat_send_player(user:get_player_name(), "Cannot change time again so soon!")
 	end,
 })
 
@@ -53,13 +72,21 @@ minetest.register_tool("orbs_of_time:orb_dawn", {
 	wield_image = "orbs_orb_day_weild.png^[lowpart:75:orbs_orb_night_weild.png",
 	stack_max=1,
 	on_use = function(itemstack, user)
-		minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
-		minetest.set_timeofday(0.2)
-		minetest.sound_play("orbs_birds", {pos=user:getpos(), loop=false})
-		if not minetest.settings:get_bool("creative_mode") then
-			itemstack:add_wear(65535/8)
+		if orbs_of_time.cooldown == 0 then
+			minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
+			minetest.set_timeofday(0.2)
+			orbs_of_time.cooldown = 1
+			minetest.sound_play("orbs_birds", {pos=user:getpos(), loop=false})
+			if not minetest.settings:get_bool("creative_mode") then
+				itemstack:add_wear(65535/8)
+			end
+			minetest.after(15, function()
+				orbs_of_time.cooldown = 0
+				end
+			)
+			return itemstack
 		end
-		return itemstack
+		minetest.chat_send_player(user:get_player_name(), "Cannot change time again so soon!")
 	end,
 })
 
@@ -72,13 +99,21 @@ minetest.register_tool("orbs_of_time:orb_dusk",{
 	wield_image = "orbs_orb_night_weild.png^[lowpart:75:orbs_orb_day_weild.png",
 	stack_max=1,
 	on_use = function(itemstack, user)
-		minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
-		minetest.set_timeofday(0.8)
-		minetest.sound_play("orbs_owl", {pos=user:getpos(), loop=false})
-		if not minetest.settings:get_bool("creative_mode") then
-			itemstack:add_wear(65535/8)
+		if orbs_of_time.cooldown == 0 then
+			minetest.sound_play("orbs_ding", {pos=user:getpos(), loop=false})
+			minetest.set_timeofday(0.8)
+			orbs_of_time.cooldown = 1
+			minetest.sound_play("orbs_owl", {pos=user:getpos(), loop=false})
+			if not minetest.settings:get_bool("creative_mode") then
+				itemstack:add_wear(65535/8)
+			end
+			minetest.after(15, function()
+				orbs_of_time.cooldown = 0
+				end
+			)
+			return itemstack
 		end
-		return itemstack
+		minetest.chat_send_player(user:get_player_name(), "Cannot change time again so soon!")
 	end,
 })
 
