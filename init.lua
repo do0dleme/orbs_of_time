@@ -4,7 +4,7 @@ minetest.register_alias("castle:orb_day", "orbs_of_time:orb_day")
 minetest.register_alias("castle:orb_night", "orbs_of_time:orb_night")
 
 orbs_of_time = {}
-orbs_of_time.cooldown = 0
+orbs_of_time.cooldown = 500
 
 minetest.register_tool("orbs_of_time:orb_day", {
 	description = S("Orb of Midday"),
@@ -25,7 +25,7 @@ minetest.register_tool("orbs_of_time:orb_day", {
 				itemstack:add_wear(65535/8)
 			end
 			minetest.after(15, function()
-				orbs_of_time.cooldown = 0
+				orbs_of_time.cooldown = 500
 				end
 			)
 			return itemstack
@@ -53,7 +53,7 @@ minetest.register_tool("orbs_of_time:orb_night",{
 				itemstack:add_wear(65535/8)
 			end
 			minetest.after(15, function()
-				orbs_of_time.cooldown = 0
+				orbs_of_time.cooldown = 500
 				end
 			)
 			return itemstack
@@ -81,7 +81,7 @@ minetest.register_tool("orbs_of_time:orb_dawn", {
 				itemstack:add_wear(65535/8)
 			end
 			minetest.after(15, function()
-				orbs_of_time.cooldown = 0
+				orbs_of_time.cooldown = 500
 				end
 			)
 			return itemstack
@@ -108,7 +108,7 @@ minetest.register_tool("orbs_of_time:orb_dusk",{
 				itemstack:add_wear(65535/8)
 			end
 			minetest.after(15, function()
-				orbs_of_time.cooldown = 0
+				orbs_of_time.cooldown = 500
 				end
 			)
 			return itemstack
